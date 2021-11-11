@@ -20,4 +20,4 @@ Offline Elevator Algorithm
 First we will define max_trip as the time it takes the slowest elevator to go from the lowest floor in the building to the highest.
 we will look in to the call file in segments of max_trip.
 for each segment we will divide the sequential up calls and the sequential down calls, if there are more up calls we will send it to the fastest emptiest and closest elevator and vice versa.
-then we will look into the next segment and do the same untill the call file is full.123
+then we will look into the next segment and do the same untill the call file is full.
