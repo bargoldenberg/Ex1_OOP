@@ -6,7 +6,7 @@ Contributers: Bar Goldenberg, Sappir Bohbot
     2. https://www.youtube.com/watch?v=xOayymoIl8U&ab_channel=SpanningTree
     3. https://www.youtube.com/watch?v=siqiJAJWUVg&ab_channel=ThinkSoftware
 
-###The difference between an offline algorithm and an online algorithm:
+### The difference between an offline algorithm and an online algorithm:
 The main difference applies to the knowledge of future input and how the algorithm makes choices in consequence to those inputs which effect run time efficiency, in an offline algorithm we know the inputs ahead of time so we can strategize a game plan to minimize the time it takes to finish the task, in an online algorithm, we receive the input in real-time, therefor the algorithm can only make decisions with the knowledge it has in this point in time.
 In consequence, offline algorithms are usually more efficient than online algorithms.
 
