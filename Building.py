@@ -1,4 +1,6 @@
 import json
+import sys
+
 from Elevator import Elevator
 
 class Building:
@@ -25,14 +27,30 @@ class Building:
             print(e)
 
     def FindFastestElevator(self):
+        e=Elevator
         fastest=0
-        fastestelev=0
         for elev in self._elevators:
-            currspeed=elev.speed
-            if currspeed>fastest:
-                fastest=currspeed
-                fastestelev=elev.id
-        return fastestelev
+            curr_speed=elev.speed
+            if curr_speed>fastest:
+                fastest=curr_speed
+                e=elev
+        return e
+
+    def FindSlowestElevator(self):
+        e=Elevator()
+        slowest = sys.maxsize
+
+        for elev in self._elevators:
+            curr_speed=elev.speed
+            if curr_speed<slowest:
+                slowest=curr_speed
+                e=elev
+        return e
+
+    def max_trip(self):
+        slowest_speed=self.FindSlowestElevator().speed
+        return (abs(self._minFloor)+abs(self._maxFloor))/slowest_speed
+
 """"
 self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float=0,openTime: float=0, startTime: float=0,stopTime: float=0
 """
@@ -48,6 +66,7 @@ print(b2)
 print(b5)
 print(b2.FindFastestElevator())
 print(b5.FindFastestElevator())
+print(b5.max_trip())
 
 
 
