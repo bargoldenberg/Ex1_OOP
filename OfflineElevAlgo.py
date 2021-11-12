@@ -21,4 +21,4 @@ this is a test for the csv read
 """
 c = []
 c = callRead("Calls_a.csv")
-print(c.)
+print(c.pop(0))
