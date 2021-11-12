@@ -1,5 +1,5 @@
 # Ex1_OOP
-####Contributors: Bar Goldenberg, Sappir Bohbot
+#### Contributors: Bar Goldenberg, Sappir Bohbot
 
 ### Literature research:
     1. https://www.geeksforgeeks.org/smart-elevator-pro-geek-cup/
@@ -12,8 +12,8 @@ In consequence, offline algorithms are usually more efficient than online algori
 
 ### Problems facing an offline elevator algorithm:
 To much data!!!
-we have alot of information about future input so there are alot more variables to consider when thinking of an effifcient algorithm.
-for example, we need to consider call times, call dierctions, elevator speed, number of elevators ect...
+we have a lot of information about future input so there are a lot more variables to consider when thinking of an efficient algorithm.
+for example, we need to consider call times, call directions, elevator speed, number of elevators ect...
 
 
 ### Offline Elevator Algorithm

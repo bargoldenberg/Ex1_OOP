@@ -46,8 +46,14 @@ class Building:
         return e
 
     def max_trip(self):
-        slowest_speed=self.FindSlowestElevator().speed
-        return (abs(self._minFloor)+abs(self._maxFloor))/slowest_speed
+        slowest_elev=self.FindSlowestElevator()
+        slowest_speed=slowest_elev.speed
+        floors=(abs(self._minFloor)+abs(self._maxFloor))
+        total_open=slowest_elev.openTime*floors
+        total_close=slowest_elev.closeTime*floors
+        total_start=slowest_elev.startTime*floors
+        total_stop=slowest_elev.stopTime*floors
+        return floors/slowest_speed+total_open+total_stop+total_close+total_start
 
 """"
 self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float=0,openTime: float=0, startTime: float=0,stopTime: float=0
@@ -65,6 +71,7 @@ print(b5)
 print(b2.FindFastestElevator())
 print(b5.FindFastestElevator())
 print(b5.max_trip())
+print(b2.max_trip())
 
 
 
