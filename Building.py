@@ -17,14 +17,14 @@ class Building:
                 self._maxFloor = my_d["_maxFloor"]
                 ele_l = my_d["_elevators"]
                 #for elem in ele_l:
-                for k,v in ele_l.items():
-                    print(ele_l)
-                    print(v["_id"])
+                for v in ele_l:
+                   # print(ele_l)
+                    #print(v["_id"])
                     e=Elevator(id=v["_id"], speed=v["_speed"], minFloor=v["_minFloor"], maxFloor=v["_maxFloor"],
                                closeTime=v["_closeTime"], openTime=v["_openTime"], startTime=v["_startTime"], stopTime=v["_stopTime"])
-                    #e = Elevator(**v)
-                    my_e[id()]=e
-               self._elevators = my_e
+                   # e = Elevator(**v)
+                    my_e.append(e)
+            self._elevators = my_e
         except IOError as e:
             print(e)
 
@@ -34,4 +34,4 @@ self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float
 
 b=Building()
 b.load_json("B1.json")
-print(b._minFloor)
+print(b._elevators.pop())
