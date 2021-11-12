@@ -17,13 +17,13 @@ class Building:
                 self._maxFloor = my_d["_maxFloor"]
                 ele_l = my_d["_elevators"]
                 #for elem in ele_l:
-                for k,v in elem.items():
+                for k,v in ele_l.items():
                     print(ele_l)
                     print(v["_id"])
-                    #e=Elevator(id=v["_id"], speed=v["_speed"], minFloor=v["_minFloor"], maxFloor=v["_maxFloor"],
-                    #           closeTime=v["_closeTime"], openTime=v["_openTime"], startTime=v["_startTime"], stopTime=v["_stopTime"])
+                    e=Elevator(id=v["_id"], speed=v["_speed"], minFloor=v["_minFloor"], maxFloor=v["_maxFloor"],
+                               closeTime=v["_closeTime"], openTime=v["_openTime"], startTime=v["_startTime"], stopTime=v["_stopTime"])
                     #e = Elevator(**v)
-                    #my_e[e.id]=e
+                    my_e[id()]=e
                self._elevators = my_e
         except IOError as e:
             print(e)
