@@ -16,9 +16,11 @@ def callRead( file_name):
                 rows.append(row)
     return calls
 
+
 """
 this is a test for the csv read
 """
 c = []
 c = callRead("Calls_a.csv")
-print(c.pop(0))
+print(len(c))
+print(c)
