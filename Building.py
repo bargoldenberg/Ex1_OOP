@@ -1,6 +1,5 @@
 import json
 import sys
-
 from Elevator import Elevator
 
 class Building:
@@ -8,7 +7,6 @@ class Building:
         self._minFloor = 0
         self._maxFloor = 0
         self._elevators = [] # matching type as the Json
-
     def __repr__(self):
         return f"minFloor:{self._minFloor}  ; maxFloor:{self._maxFloor} ; elevators: {self._elevators}"
     def load_json(self,file_name):
