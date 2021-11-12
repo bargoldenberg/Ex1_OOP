@@ -34,3 +34,4 @@ self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float
 b=Building()
 b.load_json("B1.json")
 print(b)
+
