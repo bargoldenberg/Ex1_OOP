@@ -1,5 +1,5 @@
 # Ex1_OOP
-####Contributors: Bar Goldenberg, Sappir Bohbot
+#### Contributors: Bar Goldenberg, Sappir Bohbot
 
 ### Literature research:
     1. https://www.geeksforgeeks.org/smart-elevator-pro-geek-cup/
