@@ -11,7 +11,7 @@ class Elevator:
         self.startTime=_startTime
         self.stopTime=_stopTime
     def __repr__(self):
-        return f"id:{self.id} speed:{self.speed} minFloor:{self.minFloor} maxFloor:{self.maxFloor} closeTime:{self.closeTime} openTime:{self.openTime} startTime:{self.startTime} stopTime:{self.stopTime} "
+        return f"id:{self.id} ; speed:{self.speed} ; minFloor:{self.minFloor} ; maxFloor:{self.maxFloor} ; closeTime:{self.closeTime} ; openTime:{self.openTime} ; startTime:{self.startTime} ; stopTime:{self.stopTime} "
     def from_json(self, file_name):
         with open(file_name, "r") as fp:
             di = json.load(fp)
