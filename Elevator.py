@@ -1,14 +1,15 @@
 import json
+
 class Elevator:
-    def __init__(self):
-        self.id=0
-        self.speed=0
-        self.minFloor=0
-        self.maxFloor=0
-        self.closeTime=0
-        self.openTime=0
-        self.startTime=0
-        self.stopTime=0
+    def __init__(self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float=0,openTime: float=0, startTime: float=0,stopTime: float=0) -> None:
+        self.id=id
+        self.speed=speed
+        self.minFloor=minFloor
+        self.maxFloor=maxFloor
+        self.closeTime=closeTime
+        self.openTime=openTime
+        self.startTime=startTime
+        self.stopTime=stopTime
 
     def from_json(self, file_name):
         with open(file_name, "r") as fp:
