@@ -10,7 +10,7 @@ class Call:
         self.F = F
 
     def __repr__(self):
-        return f"{self.call}, time ={self.time}, src ={self.src}, dest = {self.dest}, elevator = {self.elevator}"
+        return f"{self.call} time ={self.time} src ={self.src} dest = {self.dest} elevator = {self.elevator}"
 
 
 
