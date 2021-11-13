@@ -27,7 +27,14 @@ def exportCalls(e_call_assigned):
 
 
 
-
+'''
+Function for debuging, Delete this after we Done.
+(this function change all elevator's value to 1)
+'''
+def for_debug(calls):
+    for i in calls:
+        i.elevator = 9
+    return 0
 
 
 
@@ -44,4 +51,7 @@ c = loadCalls("Calls_a.csv")
 c[1].elevator=1
 print(c)
 print("Check for exporting:")
+for_debug(c)
+print("Print new list:")
+print(c)
 exportCalls(c)
