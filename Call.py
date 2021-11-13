@@ -6,8 +6,8 @@ class Call:
         self.time = time
         self.src = src
         self.dest = dest
-        self.elevator = elevator
         self.F = F
+        self.elevator = elevator
 
     def __repr__(self):
         return f"{self.call} time ={self.time} src ={self.src} dest = {self.dest} elevator = {self.elevator}"
