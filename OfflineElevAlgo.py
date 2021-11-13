@@ -24,21 +24,14 @@ def exportCalls(e_call_assigned):
         for element in new_e_call:
             csvwriter.writerow(element)
 
-def for_debug(calls):
-    for i in calls:
-        i.elevator = 9
-    return 0
-
 def correct_state(call, curr_dest, direction):
     return call.dest > curr_dest and direction == 1 or call.dest < curr_dest and direction == -1
-
 
 def direction(call):
     if call.dest > call.src:
         return 1
     else:
         return -1
-
 
 def max_trip(b) -> float:
     slowest_elev = b.FindSlowestElevator()
@@ -50,8 +43,7 @@ def max_trip(b) -> float:
     total_stop = slowest_elev.stopTime * floors
     return float(floors / slowest_speed + total_open + total_stop + total_close + total_start)
 
-
-def change_direction(b, calls, curr_elev, first_call, curr_dest):
+def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list):
     max_trip1 = max_trip(b)
     for call in calls:
         if float(call.time) > float(first_call) + max_trip1:
@@ -59,8 +51,9 @@ def change_direction(b, calls, curr_elev, first_call, curr_dest):
         if correct_state(call, curr_dest, direction(call)):
             curr_dest = call.dest
             call.elevator = b.FindFastestElevator(curr_elev).id
+            call_list.append(call)
             calls.remove(call)
-
+    return call_list
 
 def allocate_elevators(b, calls):
     call_list = []
@@ -71,29 +64,27 @@ def allocate_elevators(b, calls):
     while not len(calls) == 0:
         first_call = calls[0].time
         for call in calls:
-            if float(call.time) > float(first_call) + max_trip1:
+            if float(call.time) > float(first_call) + max_trip1 or float(calls[len(calls)-1].time)<max_trip1+float(first_call) and not correct_state(call, curr_dest, direction(call)):
                 curr_dest = calls[0].src
-                change_direction(b, calls, curr_elev, first_call, curr_dest)
+                call_list=change_direction(b, calls, curr_elev, first_call, curr_dest,call_list)
                 break
             if correct_state(call, curr_dest, direction(call)):
                 curr_dest = call.dest
                 call.elevator = b.FindFastestElevator(e).id
+                call_list.append(call)
                 calls.remove(call)
-
+    call_list.sort(key=lambda x: float(x.time))
+    return call_list
 
 """
 this is a test for the csv read
 """
 c = []
 c = loadCalls("Calls_a.csv")
-c[1].elevator=1
-print(c)
-c = loadCalls("Calls_a.csv")
-c[1].elevator=1
-print(c)
-print("Check for exporting:")
-for_debug(c)
-print("Print new list:")
-print(c)
+b2=Building()
+b2.load_json('B2.json')
+c=allocate_elevators(b2,c)
 exportCalls(c)
 #for commit
+
+
