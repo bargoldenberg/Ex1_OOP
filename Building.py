@@ -24,12 +24,12 @@ class Building:
         except IOError as e:
             print(e)
 
-    def FindFastestElevator(self):
+    def FindFastestElevator(self,full_elev):
         e=Elevator
         fastest=0
         for elev in self._elevators:
             curr_speed=elev.speed
-            if curr_speed>fastest:
+            if curr_speed>fastest and elev is not full_elev:
                 fastest=curr_speed
                 e=elev
         return e
@@ -45,33 +45,13 @@ class Building:
                 e=elev
         return e
 
-    def max_trip(self):
-        slowest_elev=self.FindSlowestElevator()
-        slowest_speed=slowest_elev.speed
-        floors=(abs(self._minFloor)+abs(self._maxFloor))
-        total_open=slowest_elev.openTime*floors
-        total_close=slowest_elev.closeTime*floors
-        total_start=slowest_elev.startTime*floors
-        total_stop=slowest_elev.stopTime*floors
-        return floors/slowest_speed+total_open+total_stop+total_close+total_start
+
 
 """"
 self,id: int=0,speed: float=0,minFloor: int =0,maxFloor: int =0,closeTime: float=0,openTime: float=0, startTime: float=0,stopTime: float=0
 """
 
-b=Building()
-b2=Building()
-b2.load_json("B2.json")
-b.load_json("B1.json")
-b5=Building()
-b5.load_json("B5.json")
-print(b)
-print(b2)
-print(b5)
-print(b2.FindFastestElevator())
-print(b5.FindFastestElevator())
-print(b5.max_trip())
-print(b2.max_trip())
+
 
 
 
