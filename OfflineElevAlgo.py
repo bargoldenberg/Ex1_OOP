@@ -1,6 +1,7 @@
 import csv
 from Call import *
 from Building import *
+import sys
 def loadCalls(file_name):
     if __name__ == '__main__':
         rows = []
@@ -17,7 +18,7 @@ def exportCalls(e_call_assigned):
     for call in e_call_assigned:
         new_e_call.append(call.__dict__.values())
     print(new_e_call) # ONLY FOR Debug.
-    fileName = 'Assigned_calls.csv'
+    fileName = output
 
     with open(fileName , 'w',newline="") as file:
         csvwriter = csv.writer(file)
@@ -37,12 +38,11 @@ def max_trip(b) -> float:
     slowest_elev = b.FindSlowestElevator()
     slowest_speed = slowest_elev.speed
     floors = (abs(b._minFloor) + abs(b._maxFloor))
-    total_open = slowest_elev.openTime * floors
-    total_close = slowest_elev.closeTime * floors
-    total_start = slowest_elev.startTime * floors
-    total_stop = slowest_elev.stopTime * floors
-    return float(floors / slowest_speed + total_open + total_stop + total_close + total_start)
-
+    total_open = slowest_elev.openTime
+    total_close = slowest_elev.closeTime
+    total_start = slowest_elev.startTime
+    total_stop = slowest_elev.stopTime
+    return float(floors / slowest_speed + total_open + total_stop + total_close +total_start)
 def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list):
     max_trip1 = max_trip(b)
     for call in calls:
@@ -57,20 +57,29 @@ def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list):
 
 def allocate_elevators(b, calls):
     call_list = []
-    e = Elevator()
     max_trip1 = max_trip(b)
-    curr_elev = b.FindFastestElevator(e)
     curr_dest = calls[0].src
     while not len(calls) == 0:
         first_call = calls[0].time
+        curr_elev = []
         for call in calls:
-            if float(call.time) > float(first_call) + max_trip1 or float(calls[len(calls)-1].time)<max_trip1+float(first_call) and not correct_state(call, curr_dest, direction(call)):
-                curr_dest = calls[0].src
-                call_list=change_direction(b, calls, curr_elev, first_call, curr_dest,call_list)
+            condition: bool = float(call.time) > float(first_call) + max_trip1 or float(calls[len(calls)-1].time)<max_trip1+float(first_call) and not correct_state(call, curr_dest, direction(call))
+            if condition:
+                while condition:
+                    if(len(curr_elev)==len(b._elevators)):
+                        break
+                    if(not len(calls) == 0):
+                        curr_dest = calls[0].src
+                    call_list=change_direction(b, calls, curr_elev, first_call, curr_dest,call_list)
+                    used_elev = b.FindFastestElevator(curr_elev).id
+                    curr_elev.append(used_elev)
                 break
             if correct_state(call, curr_dest, direction(call)):
                 curr_dest = call.dest
-                call.elevator = b.FindFastestElevator(e).id
+                chosen_elevator = b.FindFastestElevator([]).id
+                call.elevator=chosen_elevator
+                if chosen_elevator not in curr_elev:
+                    curr_elev.append(chosen_elevator)
                 call_list.append(call)
                 calls.remove(call)
     call_list.sort(key=lambda x: float(x.time))
@@ -79,10 +88,13 @@ def allocate_elevators(b, calls):
 """
 this is a test for the csv read
 """
-c = []
-c = loadCalls("Calls_a.csv")
+list = sys.argv
+building_json=list[1]
+calls_csv=list[2]
+output = list[3]
+c = loadCalls(calls_csv)
 b2=Building()
-b2.load_json('B2.json')
+b2.load_json(building_json)
 c=allocate_elevators(b2,c)
 exportCalls(c)
 #for commit

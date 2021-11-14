@@ -24,12 +24,12 @@ class Building:
         except IOError as e:
             print(e)
 
-    def FindFastestElevator(self,full_elev):
+    def FindFastestElevator(self,curr_elev):
         e=Elevator
         fastest=0
         for elev in self._elevators:
             curr_speed=elev.speed
-            if curr_speed>fastest and elev is not full_elev:
+            if curr_speed>fastest and elev.id not in curr_elev:
                 fastest=curr_speed
                 e=elev
         return e
