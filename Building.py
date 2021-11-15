@@ -26,23 +26,28 @@ class Building:
 
     def FindFastestElevator(self,curr_elev):
         e=Elevator
-        fastest=0
+        fastest=sys.maxsize
+        floors=abs(self._maxFloor)+abs(self._minFloor)
         for elev in self._elevators:
-            curr_speed=elev.speed
-            if curr_speed>fastest and elev.id not in curr_elev:
+            curr_speed=float(floors/elev.speed)+(elev.stopTime+elev.startTime+elev.openTime+elev.closeTime)*floors
+            if curr_speed<fastest and elev.id not in curr_elev:
                 fastest=curr_speed
                 e=elev
         return e
 
-    def FindSlowestElevator(self):
+    def FindSlowestElevator(self,curr_elev):
         e=Elevator()
         slowest = sys.maxsize
-
         for elev in self._elevators:
             curr_speed=elev.speed
-            if curr_speed<slowest:
-                slowest=curr_speed
-                e=elev
+            if not len(curr_elev)==0:
+                if curr_speed<slowest and elev.id in curr_elev:
+                    slowest=curr_speed
+                    e=elev
+            else:
+                if curr_speed<slowest:
+                    slowest=curr_speed
+                    e=elev
         return e
 
 
