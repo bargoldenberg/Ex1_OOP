@@ -30,7 +30,7 @@ class Building:
         floors=abs(self._maxFloor)+abs(self._minFloor)
         for elev in self._elevators:
             curr_speed=float(floors/elev.speed)+(elev.stopTime+elev.startTime+elev.openTime+elev.closeTime)*floors
-            if curr_speed<fastest and elev.id not in curr_elev:
+            if curr_speed<=fastest and elev.id not in curr_elev:
                 fastest=curr_speed
                 e=elev
         return e
@@ -45,7 +45,7 @@ class Building:
                     slowest=curr_speed
                     e=elev
             else:
-                if curr_speed<slowest:
+                if curr_speed<=slowest:
                     slowest=curr_speed
                     e=elev
         return e
