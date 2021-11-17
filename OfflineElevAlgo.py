@@ -125,7 +125,7 @@ def allocate_to_bunch(b, all_calls, call_list2):
     return call_list2
 """
 this is a test for the csv read
-"""
+
 def run(list):
     building_json = list[1]
     # building_json='B5.json'
@@ -141,4 +141,16 @@ def run(list):
 if __name__ == '__main__':
     list = sys.argv
     run(list)
-#for commit
+#for commit"""
+
+b4 = Building()
+b5 = Building()
+
+b4.load_json("B4.json")
+b5.load_json("B5.json")
+
+call1 = load_calls("myCsvForTest.csv")
+
+
+ans1 = allocate_elevators(b4,call1)
+export_calls(ans1,"call_List_For_test.csv")

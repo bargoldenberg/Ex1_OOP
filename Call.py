@@ -13,17 +13,3 @@ class Call:
         return f"{self.call} time ={self.time} src ={self.src} dest = {self.dest} elevator = {self.elevator}"
 
 
-
-
-"""""""""
-    def from_Csv(self, file_name):
-        with open(file_name) as fp:
-            di = csv.load(fp)
-            self.call = di["_id"]
-            self.time = di["_speed"]
-            self.src = di["_minFloor"]
-            self.dest = di["_maxFloor"]
-            self.elevator = di["_closeTime"]
-            self.F = di["_openTime"]
-"""
-
