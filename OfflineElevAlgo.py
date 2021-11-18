@@ -24,7 +24,6 @@ def export_calls(e_call_assigned, output):
     new_e_call = []
     for call in e_call_assigned:
         new_e_call.append(call.__dict__.values())
-    print(new_e_call) # ONLY FOR Debug.
     fileName = output
 
     with open(fileName , 'w',newline="") as file:
@@ -155,15 +154,10 @@ def allocate_to_bunch(b, all_calls, call_list2):
             call_list2.append(call)
     return call_list2
 
-#this is a test for the csv read
-
 def run(list):
     building_json = list[1]
-    #building_json='B4.json'
     calls_csv = list[2]
-    #calls_csv='Calls_d.csv'
     output = list[3]
-    #output='output.csv'
     c = load_calls(calls_csv)
     b2 = Building()
     b2.load_json(building_json)
@@ -172,16 +166,3 @@ def run(list):
 if __name__ == '__main__':
     list = sys.argv
     run(list)
-#for commit
-
-#b4 = Building()
-#b5 = Building()
-
-#b4.load_json("B4.json")
-#b5.load_json("B5.json")
-
-#call1 = load_calls("myCsvForTest.csv")
-
-
-#ans1 = allocate_elevators(b4,call1)
-#export_calls(ans1,"call_List_For_test.csv")

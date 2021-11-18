@@ -30,7 +30,11 @@ then we will look into the next segment and do the same untill the call file is 
 
 |Calls/Building|B1     |B2        |B3      |B4      |B5      |
 |--------------|--------|----------|--------|--------|--------|
-| Calls a      |112.92  | 50.64    | 24.71  |20.9    |15.66   |
-| Calls b      |        |          | 454.34 |184.43  |68.88   |
-| Calls c      |        |          | 451.22 |182.21  |61.18   |
-| Calls d      |        |          | 432.83 |177.45  |64.04   |
+| Calls a      |112.92  | 48.56    | 30.11  |19.93    |14.67   |
+| Calls b      |        |          | 548.18 |201.49 |46.55   |
+| Calls c      |        |          | 571.74 |202.98  |45.89   |
+| Calls d      |        |          | 538.12 |205.72  |45.37   |
+
+### How to run:
+    1.Run the command "python3 OfflineElevAlgo.py <JSON Building file> <csv Call file> output.csv"
+    2.Run the command "java -jar Ex1_checker_V1.2_obf.jar 1111,2222 <JSON Building file> output.csv out.log"
