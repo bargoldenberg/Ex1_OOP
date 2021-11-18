@@ -1,3 +1,5 @@
+import math
+
 from Call import *
 from Building import *
 import sys
@@ -13,6 +15,7 @@ def load_calls(file_name):
                 calls.append(c)
                 rows.append(row)
     return calls
+
 def export_calls(e_call_assigned, output):
     new_e_call = []
     for call in e_call_assigned:
@@ -24,9 +27,20 @@ def export_calls(e_call_assigned, output):
         csvwriter = csv.writer(file)
         for element in new_e_call:
             csvwriter.writerow(element)
+'''
+This function checks if a call is on the way or not.
+'''
+def correct_state(call, curr_dest, direction, call_list, current_elevator):
+    if len(call_list)==0:
+        return call.src >= curr_dest and direction == 1 or call.src <= curr_dest and direction == -1
+    else:
+        condition1 = call.src >= call_list[len(call_list)-1].src and direction == 1 or call.src <= call_list[len(call_list)-1].src and direction == -1
+        condition2 = calc_time(call,call_list,current_elevator)<=float(call.time)-float(call_list[len(call_list)-1].time)
+        return condition2 and condition1
 
-def correct_state(call, curr_dest, direction):
-    return call.src >= curr_dest and direction == 1 or call.src <= curr_dest and direction == -1
+def calc_time(call,call_list,current_elevator):
+    time = (abs(float((call_list[len(call_list)-1].src))+abs(float(call.src)))/float(current_elevator.speed))+current_elevator.startTime+current_elevator.stopTime+current_elevator.openTime+current_elevator.closeTime
+    return time
 
 def direction(call):
     if call.dest > call.src:
@@ -49,7 +63,7 @@ def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list,max_tr
     for call in calls:
         if float(call.time) > float(first_call) + max_trip1:
             break
-        if correct_state(call, curr_dest, direction(call)):
+        if correct_state(call, curr_dest, direction(call), call_list, b.FindFastestElevator(curr_elev)):
             curr_dest = call.dest
             call.elevator = b.FindFastestElevator(curr_elev).id
             call_list.append(call)
@@ -70,7 +84,7 @@ def allocate_elevators(b, calls):
             curr_elev = []
             elevator_counter = 0
         for call in calls:
-            condition: bool = float(call.time) > float(first_call) + max_trip1 or float(calls[len(calls)-1].time)<max_trip1+float(first_call) and not correct_state(call, curr_dest, direction(call))
+            condition: bool = float(call.time) > float(first_call) + max_trip1 or float(calls[len(calls)-1].time)<max_trip1+float(first_call) and not correct_state(call, curr_dest, direction(call),call_list1,b.FindFastestElevator(curr_elev))
             if condition:
                 if len(call_list1) != 0:
                     all_calls.append(call_list1)
@@ -85,7 +99,7 @@ def allocate_elevators(b, calls):
                     if len(call_list1) != 0:
                         all_calls.append(call_list1)
                         call_list1=[]
-                    used_elev = b.FindFastestElevator(curr_elev).id
+                    used_elev = b.FindFastestElevator(curr_elev)
                     curr_elev.append(used_elev)
                     elevator_counter += 1
                 tmp_list = allocate_to_bunch(b, all_calls, call_list1)
@@ -94,9 +108,9 @@ def allocate_elevators(b, calls):
                     call_list.append(call)
                 call_list1 = []
                 break
-            if correct_state(call, curr_dest, direction(call)):
+            if correct_state(call, curr_dest, direction(call),call_list1,b.FindFastestElevator([])):
                 curr_dest = call.dest
-                chosen_elevator = b.FindFastestElevator([]).id
+                chosen_elevator = b.FindFastestElevator([])
                 call.elevator = chosen_elevator
                 if chosen_elevator not in curr_elev:
                     curr_elev.append(chosen_elevator)
@@ -128,11 +142,11 @@ this is a test for the csv read
 
 def run(list):
     building_json = list[1]
-    # building_json='B5.json'
+    #building_json='B5.json'
     calls_csv = list[2]
-    # calls_csv='Calls_b.csv'
+    #calls_csv='Calls_b.csv'
     output = list[3]
-    # output='output.csv'
+    #output='output.csv'
     c = load_calls(calls_csv)
     b2 = Building()
     b2.load_json(building_json)
