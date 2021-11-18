@@ -21,3 +21,6 @@ First we will define *max_trip* as the time it takes the slowest elevator to go 
 we will look in to the call file in segments of *max_trip*.
 for each segment we will divide the sequential up calls and the sequential down calls, if there are more up calls we will send it to the fastest emptiest and closest elevator and vice versa.
 then we will look into the next segment and do the same untill the call file is full.
+
+### Class Diagram:
+![Ex1Diagram](https://user-images.githubusercontent.com/89586016/142404984-3d6a0e03-e00e-47b4-b9f3-ffa8f17092a9.png)
