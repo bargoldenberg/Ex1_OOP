@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Building{
+-minFloor
+-maxFloor
+-elevators []
++init()
++load_json()
+
+}
+class Elevator{
+-id
+-speed
+-minFloor
+-maxFloor
+-closeTime
+-openTime
+-startTime
+-stopTime
++init()
++repr()
+}
+class OfflineElevAlgo{
++run()
++load_calls()
++export_calls()
++correct_state()
++calc_time()
++direction()
++max_trip()
++change_direction()
++allocate_elevators()
++allocate_to_bunch()
+}
+class Call{
++init()
++repr()
+}
+Building--*Elevator
+Elevator--*Call
+Building-->OfflineElevAlgo
+Call-->OfflineElevAlgo
+@enduml

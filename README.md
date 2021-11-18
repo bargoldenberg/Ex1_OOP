@@ -24,3 +24,13 @@ then we will look into the next segment and do the same untill the call file is 
 
 ### Class Diagram:
 ![Ex1Diagram](https://user-images.githubusercontent.com/89586016/142404984-3d6a0e03-e00e-47b4-b9f3-ffa8f17092a9.png)
+
+### Results:
+
+
+|Calls/Building|B1     |B2        |B3      |B4      |B5      |
+|--------------|--------|----------|--------|--------|--------|
+| Calls a      |112.92  | 50.64    | 24.71  |20.9    |15.66   |
+| Calls b      |        |          | 454.34 |184.43  |68.88   |
+| Calls c      |        |          | 451.22 |182.21  |61.18   |
+| Calls d      |        |          | 432.83 |177.45  |64.04   |

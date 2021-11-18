@@ -3,7 +3,9 @@ import math
 from Call import *
 from Building import *
 import sys
-
+'''
+the function loads calls from a csv file into a list
+'''
 def load_calls(file_name):
     if __name__ == '__main__':
         rows = []
@@ -15,7 +17,9 @@ def load_calls(file_name):
                 calls.append(c)
                 rows.append(row)
     return calls
-
+'''
+This function exports a list of calls into a csv file.
+'''
 def export_calls(e_call_assigned, output):
     new_e_call = []
     for call in e_call_assigned:
@@ -28,7 +32,7 @@ def export_calls(e_call_assigned, output):
         for element in new_e_call:
             csvwriter.writerow(element)
 '''
-This function checks if a call is on the way or not.
+This function checks if a call is on the way or not. Makes a rout for elevator (uses helper functions calc_time, direction) 
 '''
 def correct_state(call, curr_dest, direction, call_list, current_elevator):
     if len(call_list)==0:
@@ -47,7 +51,9 @@ def direction(call):
         return 1
     else:
         return -1
-
+'''
+the max_trip function (as stated in the readme) calculates the time it takes for the slowest elevtor to traverse the building.
+'''
 def max_trip(b,curr_elev) -> float:
     slowest_elev = b.FindSlowestElevator(curr_elev)
     slowest_speed = slowest_elev.speed
@@ -58,7 +64,9 @@ def max_trip(b,curr_elev) -> float:
     total_stop = slowest_elev.stopTime
     all_delays=total_open+total_stop+total_close+total_start
     return float(floors / slowest_speed)+all_delays
-
+'''
+Helper function for allocate_elevator
+'''
 def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list,max_trip1):
     for call in calls:
         if float(call.time) > float(first_call) + max_trip1:
@@ -69,7 +77,9 @@ def change_direction(b, calls, curr_elev, first_call, curr_dest,call_list,max_tr
             call_list.append(call)
             calls.remove(call)
     return call_list
-
+'''
+This function returns a list of calls and assigns an elevator to each call according to the algorithm stated in the readme.
+'''
 def allocate_elevators(b, calls):
     all_calls = []
     call_list = []
@@ -111,14 +121,21 @@ def allocate_elevators(b, calls):
             if correct_state(call, curr_dest, direction(call),call_list1,b.FindFastestElevator([])):
                 curr_dest = call.dest
                 chosen_elevator = b.FindFastestElevator([])
-                call.elevator = chosen_elevator
+                call.elevator = chosen_elevator.id
                 if chosen_elevator not in curr_elev:
                     curr_elev.append(chosen_elevator)
                     elevator_counter += 1
                 call_list1.append(call)
+                if len(calls)==1:
+                    call_list.append(call)
                 calls.remove(call)
     call_list.sort(key=lambda x: float(x.time))
     return call_list
+'''
+Helper function for allocate_elevator, it receives a list of lists, each list represents a rout for one elevator,
+the largest list goes to the fastest elevator and so on...
+returns a list of calls.
+'''
 def allocate_to_bunch(b, all_calls, call_list2):
     curr_elev = []
     while len(all_calls) != 0:
@@ -137,14 +154,14 @@ def allocate_to_bunch(b, all_calls, call_list2):
         for call in largest_bunch:
             call_list2.append(call)
     return call_list2
-"""
-this is a test for the csv read
+
+#this is a test for the csv read
 
 def run(list):
     building_json = list[1]
-    #building_json='B5.json'
+    #building_json='B4.json'
     calls_csv = list[2]
-    #calls_csv='Calls_b.csv'
+    #calls_csv='Calls_d.csv'
     output = list[3]
     #output='output.csv'
     c = load_calls(calls_csv)
@@ -155,16 +172,16 @@ def run(list):
 if __name__ == '__main__':
     list = sys.argv
     run(list)
-#for commit"""
+#for commit
 
-b4 = Building()
-b5 = Building()
+#b4 = Building()
+#b5 = Building()
 
-b4.load_json("B4.json")
-b5.load_json("B5.json")
+#b4.load_json("B4.json")
+#b5.load_json("B5.json")
 
-call1 = load_calls("myCsvForTest.csv")
+#call1 = load_calls("myCsvForTest.csv")
 
 
-ans1 = allocate_elevators(b4,call1)
-export_calls(ans1,"call_List_For_test.csv")
+#ans1 = allocate_elevators(b4,call1)
+#export_calls(ans1,"call_List_For_test.csv")
