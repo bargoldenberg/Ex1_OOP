@@ -7,22 +7,7 @@ from OfflineElevAlgo import *
 
 
 class MyTestCase(unittest.TestCase):
-    call1 = Call("TestCall",4.5,0,6,-1,0)
-    call2 = Call("TestCall",32.2,3,4,-1,0)
-    call3 = Call("TestCall",15,2,-1,-1,0)
 
-
-
-
-
-    # Need To Finish.
-    def test_correct_state(self):
-        # ans1 = direction(Call("TestCall", 4.5, 0, 6, -1, 0))
-        # ans2 = direction(Call("TestCall",32.2,3,4,-1,0))
-        # ans3 = direction(Call("TestCall",15,2,-1,-1,0))
-        # self.assertEqual(True, False)
-        # self.assertEqual(True, False)
-        self.assertEqual(True, False)
     # Complete.
     def test_direction(self):
         ans1 = direction(Call("TestCall", 4.5, 0, 6, -1, 0))
@@ -55,43 +40,20 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(ans3, (110/3)+10)
         self.assertEqual(ans4, 120.0)
         self.assertEqual(ans5, 250/3)
-
-
-    def test_change_direction(self):
-        # b4 = Building()
-        # b5 = Building()
-        #
-        # b4.load_json("B4.json")
-        # b5.load_json("B5.json")
-        #
-        # call1 = load_calls("Calls_a.csv")
-        # call2 = load_calls("Calls_b.csv")
-        #
-        # test1 = change_direction(b4,call1,[],)
-
-
-        self.assertEqual(True, False)  # add assertion here
-
-    def test_allocate_elevators(self):
+    # Complete.
+    def test_allocate_elevators(self, accspected=None):
         b4 = Building()
-        b5 = Building()
-
         b4.load_json("B4.json")
-        b5.load_json("B5.json")
 
-        call1 = load_calls("myCsvForTest.csv")
+        calls = load_calls('call_List_For_test.csv')
+        ans1 = allocate_elevators(b4,calls)
+        accCalls =load_calls('myCsvForTest.csv')
+        count = 0
 
-        ans1 = allocate_elevators(b4, call1)
-
-        # print(ans1.pop(0).)
-        print("Test")
-
-        # self.assertEqual(ans1.pop(0)., 3)
-        self.assertEqual(True, False)  # add assertion here
-
-    def test_allocate_to_bunch(self):
-        self.assertEqual(True, False)  # add assertion here
-
+        for call in ans1:
+            c = accCalls[count]
+            self.assertEqual(int(c.elevator),int(call.elevator))
+            count += 1
 
 if __name__ == '__main__':
     unittest.main()

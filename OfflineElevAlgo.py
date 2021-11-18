@@ -5,7 +5,7 @@ from Building import *
 import sys
 
 def load_calls(file_name):
-    if __name__ == '__main__':
+    # if __name__ == '__main__':
         rows = []
         calls = []
         with open(file_name) as e_calls:
@@ -14,13 +14,14 @@ def load_calls(file_name):
                 c = Call(row[0], row[1], row[2], row[3], row[4],row[5])
                 calls.append(c)
                 rows.append(row)
-    return calls
+
+        return calls
+
 
 def export_calls(e_call_assigned, output):
     new_e_call = []
     for call in e_call_assigned:
         new_e_call.append(call.__dict__.values())
-    print(new_e_call) # ONLY FOR Debug.
     fileName = output
 
     with open(fileName , 'w',newline="") as file:
@@ -119,6 +120,7 @@ def allocate_elevators(b, calls):
                 calls.remove(call)
     call_list.sort(key=lambda x: float(x.time))
     return call_list
+
 def allocate_to_bunch(b, all_calls, call_list2):
     curr_elev = []
     while len(all_calls) != 0:
@@ -155,7 +157,7 @@ def run(list):
 if __name__ == '__main__':
     list = sys.argv
     run(list)
-#for commit"""
+#for commit
 
 b4 = Building()
 b5 = Building()
@@ -168,3 +170,5 @@ call1 = load_calls("myCsvForTest.csv")
 
 ans1 = allocate_elevators(b4,call1)
 export_calls(ans1,"call_List_For_test.csv")
+
+"""
